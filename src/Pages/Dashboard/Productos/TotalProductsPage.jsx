@@ -1,6 +1,6 @@
 import { SidebarC } from "./Sidebar-Main/Sidebar";
 import { FooterPage } from "@Components/LowUse/Footer";
-import { HeaderPage } from "@Components/Navegation/Header";
+import { HeaderDashboard } from "@Components/Navegation/HeaderDashboard";
 import { ProductsMain } from "./Sidebar-Main/ProductsMainPage";
 
 
@@ -9,7 +9,7 @@ export const TotalProductsPage = () => {
     <>
       <main className="grid-container">
         <div className="[grid-area:header]">
-          <HeaderPage />
+          <HeaderDashboard />
         </div>
         <div className="[grid-area:sidebar]">
           <SidebarC><ProductsMain/></SidebarC>

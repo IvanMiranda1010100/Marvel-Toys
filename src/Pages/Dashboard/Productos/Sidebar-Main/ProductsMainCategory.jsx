@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { CardProduct } from '@Components/LowUse/CardProducts';
 import { useParams } from 'react-router-dom';
 import { products } from '@lib/data';
-import { BreadcrumbComponent } from "@Components/LowUse/Breadcrumbs"; 
-import { SelectOptionComponent } from "@Components/LowUse/SelectOptions"; 
+import { BreadcrumbComponent } from "@Components/LowUse/BreadCrumbs.jsx"; 
+import { SelectOptionComponent } from "@Components/LowUse/SelectOptions.jsx"; 
 import {SidebarCategories2Mobile} from './Categories/SidebarCategoryMobile'
+import { useNavigate } from 'react-router-dom';
 
 
 export const ProductsCategory = () => {
@@ -14,6 +15,7 @@ export const ProductsCategory = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
   const [sortOrder, setSortOrder] = useState(null);
   const [prevCategory, setPrevCategory] = useState(categoryName);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Filtrar productos según la categoría
@@ -56,24 +58,31 @@ export const ProductsCategory = () => {
     setSortOrder(order);
   };
 
+  const handleProductClick = (productId) => {
+    navigate(`/dashboard/Productos/${productId}`);
+  };
+
   const showMoreProducts = () => {
     setVisibleProducts(prevVisible => prevVisible + 6);
   };
 
   return (
     <>
-      <main className='px-6 py-4'>
-        <div className='flex gap-x-10'>
+      <main className='sm:px-6 px-3 py-4'>
+        <div className='flex gap-x-2 justify-center'>
           <div>
             <SelectOptionComponent onSortChange={handleSortChange}/>
           </div>
-          <SidebarCategories2Mobile/>
+          <div>
+            <SidebarCategories2Mobile/>
+          </div>
         </div>
         <h2 className='lg:text-3xl mt-3 sm:text-2xl text-lg'>{categoryName}</h2>
         <BreadcrumbComponent>{categoryName}</BreadcrumbComponent>
         <div className='containe grid justify-center items-center sm:grid-cols-3'>
           {sortedProducts.slice(0, visibleProducts).map((product, index) => (
             <CardProduct
+            onClick={() => handleProductClick(product.id)}
               key={index}
               image={product.image}
               Description={product.Description}

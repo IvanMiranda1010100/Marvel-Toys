@@ -44,7 +44,7 @@ export const Carrousel = () => {
         ))}
       </div>
       {/* Slider indicators */}
-      <div className="absolute flex space-x-3 -translate-x-1/2 z-[99] bottom-3 left-1/2 rtl:space-x-reverse">
+      <div className="absolute flex space-x-3 -translate-x-1/2 z-[4] bottom-3 left-1/2 rtl:space-x-reverse">
         {images.map((_, index) => (
           <button
             key={index}

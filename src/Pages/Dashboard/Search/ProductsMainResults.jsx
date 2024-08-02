@@ -2,14 +2,19 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { products } from '@lib/data.ts';
 import { CardProduct } from '@Components/LowUse/CardProducts';
+import { useNavigate } from 'react-router-dom';
 
 
 export const ProductsResults = ()=>{
-  
+  const navigate = useNavigate();
   const { searchProduct } = useParams();
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchProduct.toLowerCase())
   );
+
+  const handleProductClick = (productId) => {
+    navigate(`/dashboard/Productos/${productId}`);
+  };
 
   return(
     <>
@@ -19,6 +24,7 @@ export const ProductsResults = ()=>{
         {filteredProducts.length ? (
           filteredProducts.map((product,index) => (
             <CardProduct
+            onClick={() => handleProductClick(product.id)}
             key={index}
             image={product.image}
             Description={product.Description}

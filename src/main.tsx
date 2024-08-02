@@ -14,6 +14,7 @@ import {TotalProductsPage} from './Pages/Dashboard/Productos/TotalProductsPage.j
 import {ContactPage} from './Pages/Dashboard/Contact/Contact.jsx'
 import {CategoryPage} from './Pages/Dashboard/Productos/CategoriesPage.jsx'
 import {SearchResultPage} from './Pages/Dashboard/Search/SearchResultsPage.jsx'
+import {ProductWeb} from './Pages/Dashboard/Product/ProductPage.jsx'
 
 // Import the components
 import { DashboardBody } from './Pages/Dashboard/DashboardPage.jsx';
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
           { path: "/dashboard/Productos", element: <TotalProductsPage /> },
           { path: "/dashboard/Productos/category/:categoryName", element: <CategoryPage  /> },
           { path: "/dashboard/Productos/search/:searchProduct", element: <SearchResultPage  /> },
+          { path: "/dashboard/Productos/:productName", element: <ProductWeb /> },
         ]
       },
       { path: "*", element: <NotFound /> },

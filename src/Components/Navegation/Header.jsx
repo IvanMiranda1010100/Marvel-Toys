@@ -38,7 +38,7 @@ export const HeaderPage = () => {
        className="">
         <main className=" z-[45] gap-x-3 bg-[#1D1F20] w-full h-28 grid items-center grid-cols-3 px-2">
           <picture className='relative left-4'>
-           <img className="size-20" src="../public/logo.png" alt="Logo de Marvel Toys" />
+           <img className="size-20" src="/logo.png" alt="Logo de Marvel Toys" />
           </picture>
             <div className='flex justify-center'>
              <NavigationMenuDemo/>

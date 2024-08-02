@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react';
 import { CardProduct } from '@Components/LowUse/CardProducts';
 import { products } from '@lib/data';
 import { SelectOptionComponent } from '@Components/LowUse/SelectOptions';
+import {SidebarCategories2Mobile} from './Categories/SidebarCategoryMobile'
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const ProductsMain = () => {
   const [visibleProducts, setVisibleProducts] = useState(12);
   const [originalProducts, setOriginalProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [sortOrder, setSortOrder] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const shuffled = shuffleArray([...products]);
@@ -41,25 +45,37 @@ export const ProductsMain = () => {
     setSortOrder(order);
   };
 
+  const handleProductClick = (productId) => {
+    navigate(`/dashboard/Productos/${productId}`);
+  };
+
   const showMoreProducts = () => {
     setVisibleProducts((prevVisible) => prevVisible + 6);
   };
 
   return (
     <>
-      <main className="px-6 py-4">
-        <SelectOptionComponent onSortChange={handleSortChange} />
+      <main className="sm:px-6 px-3 py-4">
+      <div className='flex gap-x-2 justify-center'>
+          <div>
+            <SelectOptionComponent onSortChange={handleSortChange}/>
+          </div>
+          <div>
+            <SidebarCategories2Mobile/>
+          </div>
+        </div>
         <h2 className='lg:text-3xl mt-3 sm:text-2xl text-lg'>Productos</h2>
         <div className="containe grid justify-center items-center md:grid-cols-3">
           {sortedProducts.slice(0, visibleProducts).map((product, index) => (
-            <CardProduct
-              key={index}
-              image={product.image}
-              Description={product.Description}
-              name={product.name}
-              price={product.price}
-              cents={product.cents}
-            />
+             <Link to={`/dashboard/Productos/${product.id}`} key={index}>
+             <CardProduct
+               image={product.image}
+               Description={product.Description}
+               name={product.name}
+               price={product.price}
+               cents={product.cents}
+             />
+           </Link>
           ))}
         </div>
         {visibleProducts < sortedProducts.length && (

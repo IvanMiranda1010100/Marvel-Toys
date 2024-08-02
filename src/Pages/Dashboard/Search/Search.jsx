@@ -61,7 +61,6 @@ export const SearchInput = () => {
   border: 1px solid rgba(223, 225, 229, 0.5);
   box-shadow: none;
   border-radius: 24px;
-  margin: 0 auto;
   width: auto;
   max-width: 224px;
 }

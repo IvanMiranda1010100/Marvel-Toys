@@ -7,7 +7,7 @@ export const ContactPage = () => {
     <>
     <HeaderDashboard/>
     <section
-    style={ {backgroundImage:'url(/public/fondoContact.jpg)',
+    style={ {backgroundImage:'url(/fondoContact.jpg)',
     backgroundRepeat:'no-repeat',
     backgroundSize:'cover',
     backgroundPosition:'center'

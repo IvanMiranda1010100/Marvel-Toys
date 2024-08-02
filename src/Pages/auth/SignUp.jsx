@@ -3,7 +3,7 @@ import { SignUp } from '@clerk/clerk-react';
 export default function Signup() {
   return (
     <main
-      style={{ backgroundImage: 'url(../public/FondoSignUp.jpg)', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'Center' }}
+      style={{ backgroundImage: 'url(/FondoSignUp.jpg)', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'Center' }}
       className='flex items-center justify-center w-full min-h-screen'
     >
       <div className='m'>
