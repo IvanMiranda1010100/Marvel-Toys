@@ -23,7 +23,7 @@ export const SearchMob = () => {
 
   return (
     <>
-      <main>
+      <main className='flex'>
         <button onClick={handleButtonClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ export const SearchMob = () => {
       </main>
 
       {isSearchVisible && (
-        <div className="searchbar-expanded">
+        <div className="searchbar-expanded ">
           <div className="searchbar-wrapper">
             <div className="searchbar-left">
               <div className="search-icon-wrapper">
@@ -185,9 +185,14 @@ export const SearchMob = () => {
         flex: 100%;
         margin-top: -37px;
         height: 34px;
-        font-size: 19px;
         max-width: 100%;
         width: 100%;
+      }
+
+      @media(max-width:767px){
+        .searchbar-input{
+          font-size:19px;
+        }
       }
 
       .searchbar-right {

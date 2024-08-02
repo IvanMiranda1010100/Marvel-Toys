@@ -43,7 +43,7 @@ export const Carrousel = ({ productName }) => {
         )}
       </div>
       {/* Slider indicators */}
-      <div className="absolute flex space-x-3 -translate-x-1/2 z-[99] bottom-3 left-1/2 rtl:space-x-reverse">
+      <div className="absolute flex space-x-3 -translate-x-1/2 z-[3] bottom-3 left-1/2 rtl:space-x-reverse">
         {productImages.map((_, index) => (
           <button
             key={index}
