@@ -9,7 +9,7 @@ export default function PageWelcome(){
       <HeaderPage/>
       <div className='bg-black text-center pb-2 '>
         <Carrousel/> 
-        <h2 className='ml-6 mt-3 mb-2 sm:text-lg lg:text-2xl font-bold'>PRODUCTOS</h2>
+        <h2 className='mt-3 mb-2 sm:text-lg lg:text-2xl font-bold'>PRODUCTOS</h2>
         <main className='flex flex-1 flex-wrap gap-2 justify-center items-center pb-3'>
           <a href="/dashboard/Productos/category/Figuras"><button className='truncate text-center text-sm lg:text-[17px] lg:px-3 lg:py-2 px-1.5 py-2 border border-solid border-white'>FIGURAS</button></a>
           <a href="/dashboard/Productos/category/Videojuegos"><button className='truncate text-center text-sm lg:text-[17px] lg:px-3 lg:py-2 px-1.5 py-2 border border-solid border-white'>VIDEOJUEGOS</button></a>

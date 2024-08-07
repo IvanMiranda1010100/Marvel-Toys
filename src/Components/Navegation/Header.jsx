@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { NavigationMenuDemo } from './NavegationRutes/NavegationMenu'
-import {SearchInput} from '/src/Pages/Dashboard/Search/Search'
+import {HeaderPc} from './HeaderDesktop'
+import {HeaderMob} from './HeaderMobile'
 
 export const HeaderPage = () => {
   return (
@@ -34,20 +34,12 @@ export const HeaderPage = () => {
           </aside>
       </nav>
       
-      <section
-       className="">
-        <main className=" z-[45] gap-x-3 bg-[#1D1F20] w-full h-28 grid items-center grid-cols-3 px-2">
-          <picture className='relative left-4'>
-           <img className="size-20" src="/logo.png" alt="Logo de Marvel Toys" />
-          </picture>
-            <div className='flex justify-center'>
-             <NavigationMenuDemo/>
-            </div>
-            <div className='flex flex-1'>
-              <SearchInput/>
-            </div>
-        </main>
-      </section>
+      <div className='md:block hidden'>
+        <HeaderPc/>
+      </div>
+      <div className='block md:hidden'>
+        <HeaderMob/>
+      </div>
       
     </div>
   );

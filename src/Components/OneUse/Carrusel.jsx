@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 export const Carrousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = [
-    "https://image.api.playstation.com/vulcan/img/rnd/202010/2812/xR10Bo3dC6iArjBJDE73LgYj.jpg",
-    "https://sm.ign.com/ign_es/screenshot/default/br_fq24.jpg",
-    "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2017/02/mayores-villanos-universo-marvel-comics_11.jpg?tf=3840x",
-    "https://i.blogs.es/95fcf3/sdcc_avengerssecretwars/1366_2000.jpeg",
-    "https://iforum-sg.c.hihonor.com/latin/latin_data/images/2020/12/18/055980a7-7876-41c7-801c-1cd186fdd523.jpg?imageId=298373"
+    "/CarrouselHome/1.avif",
+    "/CarrouselHome/2.jpg",
+    "/CarrouselHome/3.webp",
+    "/CarrouselHome/4.jpeg",
+    "/CarrouselHome/5.jpg"
   ];
 
   useEffect(() => {
