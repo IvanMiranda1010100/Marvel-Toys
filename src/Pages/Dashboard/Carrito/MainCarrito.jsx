@@ -20,18 +20,12 @@ export const CarritoMain = () => {
   const confirmRemove = () => {
     const item = items.find((i) => i.product.name === productToRemove.name);
     if (item) {
-      const newQuantity = Math.min(quantityToRemove, item.quantity);
-      if (newQuantity >= item.quantity) {
-        removeItem(item.product.name);
-      } else {
-        item.quantity -= newQuantity;
-      }
+      removeItem(item.product.name, quantityToRemove);
     }
     setShowAlert(false);
     setProductToRemove(null);
     setQuantityToRemove(1); // Reiniciar la cantidad a 1 después de eliminar
   };
-
   const cancelRemove = () => {
     setShowAlert(false);
     setProductToRemove(null);

@@ -15,7 +15,7 @@ export const HeaderDashboard = () => {
       <nav className="bg-[#181A1B] flex flex-1 min-h-14 items-center font-semibold w-full px-5">
         <header className="flex gap-x-3">
           <span>
-            <Link to="/sign-up/">Mi Cuenta</Link>
+            <Link to="/dashboard/MiCuenta">Mi Cuenta</Link>
           </span>
           <span> | </span>
           <span>

@@ -21,6 +21,7 @@ import {PageCarrito} from './Pages/Dashboard/Carrito/CarritoPage.jsx'
 import { DashboardBody } from './Pages/Dashboard/DashboardPage.jsx';
 import Login from './Pages/auth/Login.jsx';
 import Signup from './Pages/auth/SignUp.jsx';
+import {UserProfilePage} from './Pages/auth/UserConfigure.jsx';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
         children: [
           { path: "/dashboard/Productos/:productName", element: <ProductWeb /> },
           { path: "/dashboard/Productos/Carrito", element: <PageCarrito /> },
+          { path: "/dashboard/MiCuenta", element: <UserProfilePage/> },
         ]
       },
       { path: "*", element: <NotFound /> },
