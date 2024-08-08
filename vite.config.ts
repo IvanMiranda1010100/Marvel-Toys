@@ -18,6 +18,7 @@ export default defineConfig({
       '@Components': '/src/Components',
       '@Productos': '/public/Productos',
       '@lib': '/src/lib',
+      '@store': '/src/store',
     },
   },
    server: {

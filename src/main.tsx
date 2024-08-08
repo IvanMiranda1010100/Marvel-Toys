@@ -15,6 +15,7 @@ import {ContactPage} from './Pages/Dashboard/Contact/Contact.jsx'
 import {CategoryPage} from './Pages/Dashboard/Productos/CategoriesPage.jsx'
 import {SearchResultPage} from './Pages/Dashboard/Search/SearchResultsPage.jsx'
 import {ProductWeb} from './Pages/Dashboard/Product/ProductPage.jsx'
+import {PageCarrito} from './Pages/Dashboard/Carrito/CarritoPage.jsx'
 
 // Import the components
 import { DashboardBody } from './Pages/Dashboard/DashboardPage.jsx';
@@ -28,17 +29,18 @@ const router = createBrowserRouter([
       { path: "/", element: <PageWelcome /> },
       { path: "/sign-in/*", element: <Login /> },
       { path: "/sign-up/*", element: <Signup /> },
+      { path: "/dashboard", element: <DashboardBody /> },
+      { path: "/dashboard/como-comprar", element: <BuyInfoPage /> },
+      { path: "/dashboard/contacto", element: <ContactPage /> },
+      { path: "/dashboard/Productos", element: <TotalProductsPage /> },
+      { path: "/dashboard/Productos/category/:categoryName", element: <CategoryPage  /> },
+      { path: "/dashboard/Productos/search/:searchProduct", element: <SearchResultPage  /> },
       {
         element: <DashboardLayout />,
         path: "dashboard",
         children: [
-          { path: "/dashboard", element: <DashboardBody /> },
-          { path: "/dashboard/como-comprar", element: <BuyInfoPage /> },
-          { path: "/dashboard/contacto", element: <ContactPage /> },
-          { path: "/dashboard/Productos", element: <TotalProductsPage /> },
-          { path: "/dashboard/Productos/category/:categoryName", element: <CategoryPage  /> },
-          { path: "/dashboard/Productos/search/:searchProduct", element: <SearchResultPage  /> },
           { path: "/dashboard/Productos/:productName", element: <ProductWeb /> },
+          { path: "/dashboard/Productos/Carrito", element: <PageCarrito /> },
         ]
       },
       { path: "*", element: <NotFound /> },

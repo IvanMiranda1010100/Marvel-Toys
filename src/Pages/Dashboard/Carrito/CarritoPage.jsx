@@ -1,5 +1,13 @@
+import {CarritoMain} from './MainCarrito'
+import {HeaderDashboard} from '@Components/Navegation/HeaderDashboard'
+import {FooterPage } from '@Components/LowUse/Footer'
+
 export const PageCarrito = () => {
-  return(
-    <h1>hola</h1>
-  )
-}
+  return (
+    <>
+    <HeaderDashboard/>
+    <CarritoMain/>
+    <FooterPage/>
+    </>
+  );
+};

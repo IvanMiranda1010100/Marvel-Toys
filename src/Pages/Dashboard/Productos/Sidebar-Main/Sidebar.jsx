@@ -5,14 +5,14 @@ export const SidebarC = ({children}) => {
   return (
     <> 
     <div className='flex'>
-      <aside
+      <aside 
         id="separator-sidebar"
-        className=" z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className="sticky top-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
         {" "}
         <div className="h-full px-3 py-4 overflow-y-auto bg-[#242424]">
-          <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-700">
+          <ul className="pt-4 mt-4 space-y-2 font-medium">
             <li>
             <SidebarCategories2/>
             </li>
