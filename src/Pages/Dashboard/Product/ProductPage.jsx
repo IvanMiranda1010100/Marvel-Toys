@@ -103,6 +103,7 @@ export const ProductWeb = () => {
                 productName={product.name}
                 totalPrice={totalPrice}
                 quantity={quantity}
+                height={50}
               />
               </button>
               

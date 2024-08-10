@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-export const PayPalButtonComponent = ({ productName, totalPrice, quantity }) => {
+export const PayPalButtonComponent = ({ productName, totalPrice, quantity,height }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const PayPalButtonComponent = ({ productName, totalPrice, quantity }) => 
           style={{
             layout: 'horizontal',
             color: 'blue',
-            height: 50,
+            height: height,
             tagline: false
           }}
         />

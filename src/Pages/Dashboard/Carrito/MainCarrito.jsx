@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useCartStore } from "@store/buyStore.js";
+import { PayPalButtonComponent } from "../Product/PaypalButton.jsx";
 
 export const CarritoMain = () => {
+  const [botonPaypal, setBotonPaypal] = useState(false);
+  const [botonPaypalUnity, setBotonPaypalUnity] = useState(false);
+
   const { items, removeItem } = useCartStore((state) => ({
     items: state.items,
     removeItem: state.removeItem,
@@ -32,103 +36,185 @@ export const CarritoMain = () => {
     setQuantityToRemove(1); // Reiniciar la cantidad a 1 después de cancelar
   };
 
-  const totalPrice = items.reduce((total, item) => {
-    const productPrice = parseFloat(item.product.price.replace('$', '').replace(',', ''));
-    const pricePerUnit = productPrice + (item.product.cents ? parseFloat(item.product.cents) / 100 : 0);
-    return total + pricePerUnit * item.quantity;
-  }, 0).toFixed(2);
+  const totalPrice = items
+    .reduce((total, item) => {
+      const productPrice = parseFloat(
+        item.product.price.replace("$", "").replace(",", "")
+      );
+      const pricePerUnit =
+        productPrice +
+        (item.product.cents ? parseFloat(item.product.cents) / 100 : 0);
+      return total + pricePerUnit * item.quantity;
+    }, 0)
+    .toFixed(2);
 
   return (
-    <>
-      <div className="container text-white">
-        <div className="products">
-          {items.length === 0 ? (
-            <p>No hay productos en el carrito</p>
-          ) : (
-            items.map((item) => (
-              <div key={item.product.name} className="item bg-black bg-opacity-30">
-                <img src={item.product.image} alt="Product Image" className="product-image" />
+    <div className="container text-white">
+      <div className="products">
+        {items.length === 0 ? (
+          <p>No hay productos en el carrito</p>
+        ) : (
+          items.map((item) => {
+            // Calcula el precio total del producto específico
+            const productPrice = parseFloat(
+              item.product.price.replace("$", "").replace(",", "")
+            );
+            const totalPrice = (productPrice * item.quantity).toFixed(2);
+
+            return (
+              <div
+                key={item.product.name}
+                className="item bg-black bg-opacity-30"
+              >
+                <img
+                  src={item.product.image}
+                  alt="Product Image"
+                  className="product-image"
+                />
                 <div className="product-details">
-                  <h2 className="product-title font-semibold">{item.product.name}</h2>
+                  <h2 className="product-title font-semibold">
+                    {item.product.name}
+                  </h2>
                   <div className="product-price">
                     <span className="product-price-discount">
-                      {item.product.price}
+                      $
+                      {(
+                        parseFloat(
+                          item.product.price.replace("$", "").replace(",", "")
+                        ) * item.quantity
+                      ).toFixed(2)}
                     </span>
                   </div>
                   <div className="product-price">
-                    <span className="">
-                      Cantidad : {item.quantity}
-                    </span>
+                    <span>Cantidad : {item.quantity}</span>
                   </div>
                   <div className="product-actions">
                     <button
-                      className="bg-red-700 hover:bg-red-500 text-red-200 border-[none] py-2 px-4 rounded-md pointer text-sm"
+                      className="bg-red-700 sm:h-[39px] hover:bg-red-500 text-red-200 border-[none] py-2 px-4 rounded-md pointer text-sm"
                       onClick={() => handleRemove(item.product.name)}
                     >
                       Eliminar
                     </button>
-                    <button className="bg-green-700 hover:bg-green-600 text-white border-[none] py-2 px-4 rounded-md pointer text-sm">
-                      Comprar ahora
+                    <button
+                      onClick={() =>
+                        setBotonPaypalUnity(
+                          botonPaypalUnity === item.product.name
+                            ? null
+                            : item.product.name
+                        )
+                      }
+                      className={`sm:h-[39px] text-white border-[none] py-2 px-4 rounded-md pointer text-sm ${
+                        botonPaypalUnity === item.product.name
+                          ? "bg-red-700 hover:bg-red-600"
+                          : "bg-green-700 hover:bg-green-600"
+                      }`}
+                    >
+                      {botonPaypalUnity === item.product.name
+                        ? "Cancelar"
+                        : "Comprar ahora"}
                     </button>
+                    {botonPaypalUnity === item.product.name && (
+                      <button className="m-0 p-0">
+                        <PayPalButtonComponent
+                          productName={item.product.name}
+                          totalPrice={totalPrice}
+                          quantity={item.quantity}
+                          height={39}
+                        />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
-            ))
-          )}
+            );
+          })
+        )}
+      </div>
+      <div className="summary sticky top-0 bg-black bg-opacity-30">
+        <h2 className="summary-title">Resumen de compra</h2>
+        <div className="summary-item">
+          <span className="summary-item-title">Total</span>
+          <span className="summary-item-value">${totalPrice}</span>
         </div>
-        <div className="summary sticky top-0 bg-black bg-opacity-30">
-          <h2 className="summary-title">Resumen de compra</h2>
-          <div className="summary-item">
-            <span className="summary-item-title">Total</span>
-            <span className="summary-item-value">${totalPrice}</span>
-          </div>
-          <div className="summary-item">
-            <span className="summary-item-title">¿Cuál es el costo de envío?</span>
-            <a href="#" className="summary-item-link">Ver opciones</a>
-          </div>
-          <div className="summary-item">
-            <span className="summary-item-title">Ingresar código de cupón</span>
-            <input type="text" className="coupon-input bg-black bg-opacity-40" />
-          </div>
-          <button className="summary-button bg-green-700 hover:bg-green-600">
-            Continuar compra
+        <div className="summary-item">
+          <span className="summary-item-title">
+            ¿Cuál es el costo de envío?
+          </span>
+          <a href="#" className="summary-item-link">
+            Ver opciones
+          </a>
+        </div>
+        <div className="summary-item">
+          <span className="summary-item-title">Ingresar código de cupón</span>
+          <input type="text" className="coupon-input bg-black bg-opacity-40" />
+        </div>
+        <div className="flex button-mobile-container items-start sm:flex-row gap-x-3 gap-y-3">
+          <button
+            onClick={() => setBotonPaypal(!botonPaypal)}
+            className={` button-mobile summary-button ${
+              botonPaypal
+                ? "bg-red-700 hover:bg-red-600 "
+                : "bg-green-700 hover:bg-green-600"
+            } `}
+          >
+            {botonPaypal ? "Cancelar compra" : "Continuar compra"}
           </button>
+          {botonPaypal && (
+            <button className="m-0 p-0 button-mobile">
+              <PayPalButtonComponent
+                productName={productToRemove?.name}
+                totalPrice={totalPrice}
+                quantity={productToRemove?.quantity || 1}
+                height={48}
+              />
+            </button>
+          )}
         </div>
       </div>
 
-       {showAlert && (
+      {showAlert && (
         <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-gray-800 text-white rounded-lg shadow-lg z-50">
           <p className="text-lg mb-4">
-            {items.find(item => item.product.name === productToRemove.name)?.quantity > 1 
-              ? `¿Estás seguro de que deseas eliminar ${quantityToRemove} unidades de este producto?` 
-              : '¿Estás seguro de que deseas eliminar este producto?'}
+            {items.find((item) => item.product.name === productToRemove.name)
+              ?.quantity > 1
+              ? `¿Estás seguro de que deseas eliminar ${quantityToRemove} unidades de este producto?`
+              : "¿Estás seguro de que deseas eliminar este producto?"}
           </p>
-          {items.find(item => item.product.name === productToRemove.name)?.quantity > 1 && (
+          {items.find((item) => item.product.name === productToRemove.name)
+            ?.quantity > 1 && (
             <div className="flex items-center mb-4 gap-x-1">
-            <button
-          className="px-4 py-1 rounded-md bg-[#212425] border border-gray-700 lg:text-2xl sm:text-xl text-lg font-light text-white text-opacity-60"
-          onClick={() => setQuantityToRemove(Math.max(1, quantityToRemove - 1))}
-          disabled={quantityToRemove <= 1}
-        >
-          -
-        </button>
-        <input
-          type="number"
-          className="w-12 px-2 py-1 rounded-md border bg-black text-white border-gray-700 text-center"
-          value={quantityToRemove}
-          onChange={(e) => setQuantityToRemove(Number(e.target.value))}
-          min="1"
-        />
-        <button
-          className="px-4 py-1 rounded-md bg-[#212425] border border-gray-700 lg:text-2xl sm:text-xl text-lg font-light text-white text-opacity-60"
-          onClick={() => setQuantityToRemove(prevQuantity => Math.min(
-            prevQuantity + 1, 
-            items.find(item => item.product.name === productToRemove.name)?.quantity || 1
-          ))}
-        >
-          +
-        </button>
-          </div>
+              <button
+                className="px-4 py-1 rounded-md bg-[#212425] border border-gray-700 lg:text-2xl sm:text-xl text-lg font-light text-white text-opacity-60"
+                onClick={() =>
+                  setQuantityToRemove(Math.max(1, quantityToRemove - 1))
+                }
+                disabled={quantityToRemove <= 1}
+              >
+                -
+              </button>
+              <input
+                type="number"
+                className="w-12 px-2 py-1 rounded-md border bg-black text-white border-gray-700 text-center"
+                value={quantityToRemove}
+                onChange={(e) => setQuantityToRemove(Number(e.target.value))}
+                min="1"
+              />
+              <button
+                className="px-4 py-1 rounded-md bg-[#212425] border border-gray-700 lg:text-2xl sm:text-xl text-lg font-light text-white text-opacity-60"
+                onClick={() =>
+                  setQuantityToRemove((prevQuantity) =>
+                    Math.min(
+                      prevQuantity + 1,
+                      items.find(
+                        (item) => item.product.name === productToRemove.name
+                      )?.quantity || 1
+                    )
+                  )
+                }
+              >
+                +
+              </button>
+            </div>
           )}
           <div className="flex justify-end gap-4">
             <button
@@ -157,6 +243,7 @@ export const CarritoMain = () => {
             max-width: 1200px;
             margin: 0 auto;
           }
+          
 
           .products {
             display: flex;
@@ -184,7 +271,7 @@ export const CarritoMain = () => {
             }
           }
 
-          @media (max-width: 450px) {
+          @media (max-width: 650px) {
             .item {
               flex-direction: column;
               text-align: center;
@@ -342,6 +429,14 @@ export const CarritoMain = () => {
             font-size: 16px;
           }
 
+          @media (max-width:650px){
+
+          .button-mobile-container{
+          display:grid;
+          }
+
+          }
+
             /* Ocultar controles de incremento y decremento en navegadores WebKit (Chrome, Safari) */
           input[type=number]::-webkit-inner-spin-button,
           input[type=number]::-webkit-outer-spin-button {
@@ -355,6 +450,6 @@ export const CarritoMain = () => {
           }
         `}
       </style>
-    </>
+    </div>
   );
 };
