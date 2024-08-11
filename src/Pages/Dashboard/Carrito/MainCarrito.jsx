@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useCartStore } from "@store/buyStore.js";
 import { PayPalButtonComponent } from "../Product/PaypalButton.jsx";
+import {ShippingOptions} from "./Envios.jsx";
+import {CuponDiscontPrice} from "./DiscountPrice.jsx";
 
 export const CarritoMain = () => {
   const [botonPaypal, setBotonPaypal] = useState(false);
   const [botonPaypalUnity, setBotonPaypalUnity] = useState(false);
+  const [selectedShipping, setSelectedShipping] = useState(null);
+  const [discountedPrice, setDiscountedPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [discountApplied, setDiscountApplied] = useState(false); // Estado para rastrear si el descuento ya se aplicó
 
   const { items, removeItem } = useCartStore((state) => ({
     items: state.items,
@@ -17,7 +23,7 @@ export const CarritoMain = () => {
 
   const handleRemove = (productName, quantity) => {
     setProductToRemove({ name: productName, quantity });
-    setQuantityToRemove(1); // Reiniciar la cantidad a 1 cuando se muestra la alerta
+    setQuantityToRemove(1);
     setShowAlert(true);
   };
 
@@ -28,12 +34,13 @@ export const CarritoMain = () => {
     }
     setShowAlert(false);
     setProductToRemove(null);
-    setQuantityToRemove(1); // Reiniciar la cantidad a 1 después de eliminar
+    setQuantityToRemove(1);
   };
+
   const cancelRemove = () => {
     setShowAlert(false);
     setProductToRemove(null);
-    setQuantityToRemove(1); // Reiniciar la cantidad a 1 después de cancelar
+    setQuantityToRemove(1);
   };
 
   const totalPrice = items
@@ -47,6 +54,30 @@ export const CarritoMain = () => {
       return total + pricePerUnit * item.quantity;
     }, 0)
     .toFixed(2);
+
+  const handleShippingSelect = (option) => {
+    setSelectedShipping(option);
+  };
+
+  const handleDiscountApplied = (price, discountValue) => {
+    if (!discountApplied) {
+      setDiscountedPrice(price - discountValue);
+      setDiscount(discountValue);
+      setDiscountApplied(true); // Marcar descuento como aplicado
+    }
+  };
+
+  const finalPrice = (
+    parseFloat(discountedPrice) +
+    (selectedShipping ? selectedShipping.cost : 0)
+  ).toFixed(2);
+
+  useEffect(() => {
+    // Resetear descuento cuando los productos cambian
+    setDiscountApplied(false);
+    setDiscountedPrice(totalPrice);
+  }, [items, totalPrice]);
+
 
   return (
     <div className="container text-white">
@@ -131,23 +162,16 @@ export const CarritoMain = () => {
         )}
       </div>
       <div className="summary sticky top-0 bg-black bg-opacity-30">
-        <h2 className="summary-title">Resumen de compra</h2>
-        <div className="summary-item">
+        <h2 className="font-bold mb-1 text-center text-xl">Resumen de compra</h2>
+        <hr className="mb-2" />
+        <div className="summary-item px-3">
           <span className="summary-item-title">Total</span>
-          <span className="summary-item-value">${totalPrice}</span>
+          <span className="summary-item-value">${finalPrice}</span>
         </div>
-        <div className="summary-item">
-          <span className="summary-item-title">
-            ¿Cuál es el costo de envío?
-          </span>
-          <a href="#" className="summary-item-link">
-            Ver opciones
-          </a>
-        </div>
-        <div className="summary-item">
-          <span className="summary-item-title">Ingresar código de cupón</span>
-          <input type="text" className="coupon-input bg-black bg-opacity-40" />
-        </div>
+        <hr className='mb-2' />
+        <ShippingOptions onShippingSelect={handleShippingSelect} />
+        <hr className='mb-4 mt-3' />
+        <CuponDiscontPrice totalPrice={parseFloat(finalPrice)} onDiscountApplied={handleDiscountApplied}/>
         <div className="flex button-mobile-container items-start sm:flex-row gap-x-3 gap-y-3">
           <button
             onClick={() => setBotonPaypal(!botonPaypal)}
@@ -163,7 +187,7 @@ export const CarritoMain = () => {
             <button className="m-0 p-0 button-mobile">
               <PayPalButtonComponent
                 productName={productToRemove?.name}
-                totalPrice={totalPrice}
+                totalPrice={finalPrice}
                 quantity={productToRemove?.quantity || 1}
                 height={48}
               />
@@ -412,13 +436,7 @@ export const CarritoMain = () => {
             text-decoration: underline;
           }
 
-          .coupon-input {
-            width: 100%;
-            padding: 8px;
-            border-radius: 6px;
-            margin-top: 5px;
-            font-size: 14px;
-          }
+          
 
           .summary-button {
             color: white;
