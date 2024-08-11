@@ -1,30 +1,29 @@
-# React + TypeScript + Vite
+# Marvel Toys
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Marvel Toys es un sitio de comercio electrónico desarrollado con la última versión de React y Vite. La tienda está completamente estilizada con Tailwind CSS y CSS adicional, y se encuentra desplegada en producción en Vercel.
 
-Currently, two official plugins are available:
+## Vista previa en vivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**[Haz clic aquí para ver la vista previa en vivo de Marvel Toys.](https://marvel-toys.vercel.app/)**
 
-## Expanding the ESLint configuration
+![Vista previa del proyecto](/public/ProyectCapture.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Características
 
-- Configure the top-level `parserOptions` property like this:
+- **Inicio de sesión:** Implementado con Clerk.
+- **Pasarela de pagos:** Integrada con PayPal.
+- **Estilos:** Principalmente con Tailwind CSS, pero también incluye CSS personalizado.
+- **Estado global:** Manejado con Zustand.
+- **Contacto:** Configurado con EmailJS.
+- **Páginas específicas:** Productos, categorías, búsqueda, producto individual, carrito, información de usuario y contacto.
+- **Búsqueda completa:** Filtra productos por nombre, categoría y precio.
+- **Categorías y ordenamiento:** Filtra productos por categorías y ordena por precio, mayor a menor y viceversa.
+- **Modo oscuro:** Soporte para tema oscuro.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Configuración del proyecto
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Clonar el repositorio
+
+```bash
+$ git clone https://github.com/IvanMiranda1010100/Marvel-Toys.git
+
