@@ -23,7 +23,7 @@ Marvel Toys es un sitio de comercio electrónico desarrollado con la última ver
 1. Clone the project
 
 ```bash
-$ git clone https://github.com/jamstack-cms/jamstack-ecommerce.git
+$ git clone https://github.com/IvanMiranda1010100/Marvel-Toys.git
 ```
 
 2. Install the dependencies:
